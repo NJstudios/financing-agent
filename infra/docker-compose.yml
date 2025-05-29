@@ -1,0 +1,33 @@
+services:
+  # ---- optional infra you may want later ----
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: demo
+    volumes: [ "pgdata:/var/lib/postgresql/data" ]
+    ports: [ "5432:5432" ]
+
+  minio:
+    image: minio/minio:latest
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: admin
+      MINIO_ROOT_PASSWORD: admin123
+    volumes: [ "miniodata:/data" ]
+    ports: [ "9000:9000", "9001:9001" ]
+
+  # ---- the only piece we actually run right now ----
+  ingest:
+    build: ../ingest          # path to Dockerfile
+    command: ["python", "main.py"]
+    environment:
+      HEARTBEAT_INTERVAL: 5   # seconds
+    depends_on:
+      - postgres
+      - minio                 # comment these if you removed the blocks
+
+volumes:
+  pgdata:
+  miniodata:
