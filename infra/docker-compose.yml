@@ -24,6 +24,9 @@ services:
     command: ["python", "main.py"]
     environment:
       HEARTBEAT_INTERVAL: 5   # seconds
+      CIK: "0000320193"              # Apple—for tests
+      POLL_INTERVAL: "600"           # seconds
+      USER_AGENT: "me@example.com FinDocAgent/0.1" #your user
     depends_on:
       - postgres
       - minio                 # comment these if you removed the blocks
