@@ -1,8 +1,8 @@
 import os
 import time
-import httpx
+import httpx # type: ignore
 import traceback
-from dotenv import load_dotenv
+from dotenv import load_dotenv # type: ignore
 from store_module import fetch_and_store
 from parser import extract_tags
 from db import store_filing, store_metrics
