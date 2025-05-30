@@ -3,10 +3,12 @@ services:
   postgres:
     image: postgres:16
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: pass
-      POSTGRES_DB: demo
-    volumes: [ "pgdata:/var/lib/postgresql/data" ]
+      POSTGRES_USER: filings
+      POSTGRES_PASSWORD: filings
+      POSTGRES_DB: filings
+    volumes: [ "pgdata:/var/lib/postgresql/data", 
+              "../infra/init.sql:/docker-entrypoint-initdb.d/init.sql:ro" 
+             ]
     ports: [ "5432:5432" ]
 
   minio:
@@ -32,6 +34,7 @@ services:
       MINIO_SECRET_KEY: "admin123"
       MINIO_BUCKET: "filings"
       SEC_API_KEY: "16328f06c7b6174f08ebb7d902287d6382fd6d247a21d43d50f82cfd5435d964"
+      DATABASE_URL: "postgresql://filings:filings@postgres:5432/filings"
     depends_on:
       - postgres
       - minio                 # comment these if you removed the blocks
