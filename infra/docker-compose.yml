@@ -31,6 +31,7 @@ services:
       MINIO_ACCESS_KEY: "admin"
       MINIO_SECRET_KEY: "admin123"
       MINIO_BUCKET: "filings"
+      SEC_API_KEY: "16328f06c7b6174f08ebb7d902287d6382fd6d247a21d43d50f82cfd5435d964"
     depends_on:
       - postgres
       - minio                 # comment these if you removed the blocks
