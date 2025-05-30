@@ -27,6 +27,10 @@ services:
       CIK: "0000320193"              # Apple—for tests
       POLL_INTERVAL: "600"           # seconds
       USER_AGENT: "me@example.com FinDocAgent/0.1" #your user
+      MINIO_ENDPOINT: "minio:9000"
+      MINIO_ACCESS_KEY: "admin"
+      MINIO_SECRET_KEY: "admin123"
+      MINIO_BUCKET: "filings"
     depends_on:
       - postgres
       - minio                 # comment these if you removed the blocks
